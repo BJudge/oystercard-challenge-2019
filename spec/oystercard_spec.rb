@@ -12,12 +12,7 @@ describe Oystercard do
       expect{subject.top_up(86)}.to raise_error "cannot exceed balance of #{Oystercard::MAXIMUM_BALANCE}"
     end
   end
-  describe "#deduct" do
-    it 'should be able to deduct from balance' do
-      subject.top_up(10)
-      expect{subject.deduct(5)}.to change {subject.balance}.by -5
-    end
-  end
+  
   it 'is initially not in a journey' do
     expect(subject).not_to be_in_journey
   end
@@ -36,5 +31,11 @@ describe Oystercard do
     subject.touch_in
     subject.touch_out
     expect(subject).not_to be_in_journey
+  end
+
+  it 'reduces balance by the MINIMUM_BALANCE when you touch_out' do
+    subject.top_up(1)
+    subject.touch_in
+    expect {subject.touch_out}.to change{subject.balance}.by -Oystercard::MINIMUM_BALANCE
   end
 end
