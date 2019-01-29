@@ -7,9 +7,6 @@ describe Oystercard do
       expect(subject.balance).to eq 0
   end
 
-  it 'has an empty list of journeys by deault' do
-    expect(subject.journeys).to be_empty
-  end
 
   #it 'stores a journey' do
   #  subject.top_up(1)
@@ -28,9 +25,7 @@ describe Oystercard do
     end
   end
 
-  it 'is initially not in a journey' do
-    expect(subject).not_to be_in_journey
-  end
+
   it "can touch_in" do
     subject.top_up(1)
     subject.touch_in(station)
@@ -51,14 +46,21 @@ describe Oystercard do
         expect(subject).not_to be_in_journey
       end
 
-      it 'stores exit station' do
-        subject.top_up(1)
-        subject.touch_in(entry_station)
-        subject.touch_out(exit_station)
-        expect(subject.exit_station).to eq exit_station
-      end
+      #it 'stores exit station' do
+      #  subject.top_up(1)
+      #  subject.touch_in(entry_station)
+      #  subject.touch_out(exit_station)
+      #  expect(subject.exit_station).to eq exit_station
+      #end
   end
 
+  #it 'has an empty list of journeys by deault' do
+  #  expect(subject.journeys).to be_empty
+  #end
+
+  #it 'is initially not in a journey' do
+  #  expect(subject).not_to be_in_journey
+  #end
 
   it 'reduces balance by the MINIMUM_BALANCE when you touch_out' do
     subject.top_up(1)
@@ -66,9 +68,9 @@ describe Oystercard do
     expect {subject.touch_out(station)}.to change{subject.balance}.by -Oystercard::MINIMUM_BALANCE
   end
 
-  it 'stores the entry station' do
-    subject.top_up(1)
-    subject.touch_in(station)
-    expect(subject.entry_station).to eq station
-  end
+  #it 'stores the entry station' do
+  #  subject.top_up(1)
+  #  subject.touch_in(station)
+  #  expect(subject.entry_station).to eq station
+  #end
 end
